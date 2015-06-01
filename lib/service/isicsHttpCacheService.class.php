@@ -85,15 +85,18 @@ class isicsHttpCacheService
         return true;
 
       case 'setETag':
+        $event->getSubject()->setHttpHeader('Cache-Control', 'must-revalidate');
         $event->getSubject()->setHttpHeader('ETag', $event['arguments'][0]);
         return true;
 
       case 'setLastModified':
+        $event->getSubject()->setHttpHeader('Cache-Control', 'public');
         $event->getSubject()->setHttpHeader('Last-Modified', $event['arguments'][0]);
         return true;
 
       case 'setMaxAge':
-        $event->getSubject()->setHttpHeader('Cache-Control', 'public, max-age='.$event['arguments'][0].(2 === count($event['arguments']) ? ', s-maxage='.$event['arguments'][1] : ''));
+        $event->getSubject()->setHttpHeader('Cache-Control', 'public'));
+        $event->getSubject()->setHttpHeader('Cache-Control', 'max-age='.$event['arguments'][0].(2 === count($event['arguments']) ? ', s-maxage='.$event['arguments'][1] : ''));
         // @todo try to find a way to avoid set-cookies (cause gateway cache disabling)
         return true;
 
