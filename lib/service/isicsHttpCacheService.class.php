@@ -95,7 +95,7 @@ class isicsHttpCacheService
         return true;
 
       case 'setMaxAge':
-        $event->getSubject()->setHttpHeader('Cache-Control', 'public'));
+        $event->getSubject()->setHttpHeader('Cache-Control', 'public');
         $event->getSubject()->setHttpHeader('Cache-Control', 'max-age='.$event['arguments'][0].(2 === count($event['arguments']) ? ', s-maxage='.$event['arguments'][1] : ''));
         // @todo try to find a way to avoid set-cookies (cause gateway cache disabling)
         return true;
